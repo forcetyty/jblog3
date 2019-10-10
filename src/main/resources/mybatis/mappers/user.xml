@@ -3,6 +3,7 @@
 
 <mapper namespace="user">
 
+<!-- 회원가입 정보 입력 -->
 <insert id="userinsert" parameterType="uservo">
 	<![CDATA[
 		insert into user values(#{id }, #{name }, #{password }, now())
@@ -14,11 +15,18 @@
 </selectKey>
 </insert>
 
-
-
-<select id="getByEmailAndPassword1" parameterType="uservo" resultType="uservo">
+<!-- 중복검사 기능 -->
+<!-- join시에 ID 중복에 대한 처리를 하는 기능 -->
+<select id="getById" parameterType="string" resultType="uservo">
 <![CDATA[
-select no, name, role from user where email = #{email } and password = #{password }
+select id, name from user where id = #{id }
+]]>
+</select>
+
+
+<select id="getByIdAndPassword" parameterType="uservo" resultType="uservo">
+<![CDATA[
+select name, id from user where id = #{id } and password = #{password }
 ]]>
 </select>
 
@@ -48,13 +56,6 @@ update user
 <select id="getByNo" parameterType="long" resultType="uservo">
 <![CDATA[
 select no, name, email, gender from user where no = #{no }
-]]>
-</select>
-
-<!-- join시에 ID 중복에 대한 처리를 하는 기능 -->
-<select id="getById" parameterType="string" resultType="uservo">
-<![CDATA[
-select id, name from user where id = #{id }
 ]]>
 </select>
 

@@ -7,20 +7,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
-<Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+<Link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/jblog.css">
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-			<h1>Spring 이야기</h1>
-			<ul>
-				<li><a href="">로그인</a></li>
-				<li><a href="">로그아웃</a></li>
-				<li><a href="">블로그 관리</a></li>
-			</ul>
-		</div>
+		
+		<c:import url="/WEB-INF/views/include/header-blog.jsp" />
+		
 		<div id="wrapper">
 			<div id="content">
+			
 				<div class="blog-content">
 					<h4>Spring Camp 2016 참여기</h4>
 					<p>
@@ -30,6 +26,7 @@
 						 스프링 캠프라는 컨퍼런스에 찾아온 낯선 개발자들 사이에서 자신을 소개하고 이야기를 나누고 웃고 즐기며면서 어색함을 떨쳐내고 우리가 같은 분야에서 함께 일하고 있는 친구이자 동료라는 것을 인지하고 새로운 인연의 고리를 연결하고 이어갈 수 있는 순간으로 만들어가려 합니다.
 					<p>
 				</div>
+				
 				<ul class="blog-list">
 					<li><a href="">Spring Camp 2016 참여기</a> <span>2015/05/02</span>	</li>
 					<li><a href="">Spring Boot 사용법 정리</a> <span>2015/05/02</span>	</li>
@@ -42,25 +39,19 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+				<img src="${pageContext.servletContext.contextPath }/assets/images/spring-logo.jpg">
 			</div>
 		</div>
 
 		<div id="navigation">
 			<h2>카테고리</h2>
 			<ul>
-				<li><a href="">닥치고 스프링</a></li>
-				<li><a href="">스프링 스터디</a></li>
-				<li><a href="">스프링 프로젝트</a></li>
-				<li><a href="">기타</a></li>
+				<c:forEach items='${list }' var='vo' varStatus='status'>
+					<li><a href="${pageContext.servletContext.contextPath }/${vo.id}/${vo.cat_no}">${vo.name }</a></li>
+				</c:forEach>
 			</ul>
 		</div>
-		
-		<div id="footer">
-			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
-			</p>
-		</div>
+		<c:import url="/WEB-INF/views/include/footer-blog.jsp"/>
 	</div>
 </body>
 </html>
