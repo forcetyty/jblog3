@@ -3,6 +3,7 @@
 
 <mapper namespace="user">
 
+<!-- 회원가입시 연쇄적으로 Category와 Blog에 기본값이 들어가야 한다. -->
 <!-- 회원가입 정보 입력 -->
 <insert id="userinsert" parameterType="uservo">
 	<![CDATA[

@@ -3,22 +3,11 @@
 
 <mapper namespace="blog">
 
-<!-- main화면에서 catagory를 뿌려주는 기능 -->
-<select id="categorymain" resultType="categoryvo" parameterType="String">
+<!-- User 생성시 기본값으로 Blog를 설정해주는 기능 -->
+<insert id="defaultBlog" parameterType="String">
 <![CDATA[
-	select cat_no, id, name name from category where id = #{userId }
+	insert into blog values(#{id}, 'Hi Blog', 'spring-logo.jpg');
 ]]>
-</select>
-
-<select id="categoryList" resultType="categoryvo" parameterType="String">
-<![CDATA[
-	select cat.cat_no, cat.reg_date,
-	cat.name, count(p.cat_no) as cat_count, 
-	cat.contents from category as cat left outer join post as p 
-	on cat.cat_no = p.cat_no  where id = #{userId }
-	group by cat.cat_no;
-]]>
-</select>
-
+</insert>
 
 </mapper>

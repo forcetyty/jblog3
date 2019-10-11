@@ -4,22 +4,22 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.itcen.jblog.vo.PostVo;
+
 @Repository
-public class BlogDao {
+public class PostDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
 	
-	// User 생성시 기본값 설정해주는 기능  
-	public boolean defaultBlog(String id) {
+	// write 
+	public boolean postInsert(PostVo vo) {
 		Boolean result = false;
-		if(id != null) {
-			sqlSession.insert("blog.defaultBlog", id);
-			result = true;
+		if(vo != null) {
+			sqlSession.insert("post.postInsert", vo);
+			return result = true; 
 		}
 		return result;
 	}
-	
-	
 
 }

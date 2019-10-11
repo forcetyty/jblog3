@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
-<Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+<Link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/jblog.css">
 </head>
 <body>
 	<div id="container">
@@ -16,21 +16,23 @@
 			<div id="content" class="full-screen">
 			<c:import url="/WEB-INF/views/include/admin-menu-blog.jsp" />
 			
-				<form action="" method="post">
+				<form class="write-form" name="write" method="post" action="${pageContext.servletContext.contextPath }/blog/blog-admin-write" >
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
 			      			<td>
 			      				<input type="text" size="60" name="title">
-				      			<select name="category">
-				      				<option>미분류</option>
-				      				<option>자바</option>
+			      				
+				      			<select name="cat_no">
+				      				<c:forEach items="${writeCategoryList}" var="vo" varStatus="status">
+				      				<option value ="${vo.cat_no }">${vo.name }</option>
+				      				</c:forEach>	
 				      			</select>
 				      		</td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">내용</td>
-			      			<td><textarea name="content"></textarea></td>
+			      			<td><textarea name="contents"></textarea></td>
 			      		</tr>
 			      		<tr>
 			      			<td>&nbsp;</td>
@@ -40,11 +42,7 @@
 				</form>
 			</div>
 		</div>
-		<div id="footer">
-			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
-			</p>
-		</div>
+		<c:import url="/WEB-INF/views/include/footer-blog.jsp" />	
 	</div>
 </body>
 </html>

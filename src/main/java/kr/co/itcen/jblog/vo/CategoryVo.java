@@ -57,4 +57,10 @@ public class CategoryVo {
 		this.cat_count = cat_count;
 	}
 
+	@Override
+	public String toString() {
+		return "CategoryVo [cat_no=" + cat_no + ", name=" + name + ", contents=" + contents + ", reg_date=" + reg_date
+				+ ", id=" + id + ", cat_count=" + cat_count + "]";
+	}
+
 }
