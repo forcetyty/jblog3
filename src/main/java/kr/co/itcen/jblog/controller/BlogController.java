@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import kr.co.itcen.jblog.security.AuthUser;
 import kr.co.itcen.jblog.service.BlogService;
@@ -51,14 +53,6 @@ public class BlogController {
 		return "blog/blog-main";
 	}
 	
-	@RequestMapping(value = "/blog-admin-basic")
-	public String blogBasic() {
-		System.out.println("블로그 관리 화면");
-		
-		return "blog/blog-admin-basic";
-	}
-	
-	
 	// 카테고리 관리화면에서 카테고리 리스트를 가져오는 기능을 수행
 	
 	@RequestMapping(value = "/blog-admin-category", method = RequestMethod.GET )
@@ -78,16 +72,13 @@ public class BlogController {
 			) {
 		System.out.println(vo.toString());
 		System.out.println("blog-category Insert Action");
-//		@RequestParam(value = "name", required = false, defaultValue = "") String name,
-//		@RequestParam(value = "contents", required = false, defaultValue = "") String contents
+
 		vo.setId(authUser.getId());
 		vo.setName(vo.getName());
 		vo.setContents(vo.getContents());
-		
-		
+				
 		categoryService.categoryInsert(vo);
 		
-		//List<CategoryVo> list = categoryService.categoryList(authUser.getId());
 		return vo;
 	}
 	
@@ -109,6 +100,38 @@ public class BlogController {
 		
 		return "redirect:/blog/blog-admin-write";
 	}
+	
+	@RequestMapping(value = "/blog-admin-basic")
+	public String blogBasic(@AuthUser UserVo authUser, Model model) {
+		System.out.println("블로그 관리 화면");
+		
+		BlogVo vo = blogService.selectBlogInfo(authUser.getId());
+		model.addAttribute("blogDefaultInfo", vo);
+		
+		return "blog/blog-admin-basic";
+	}
+	
+	@RequestMapping(value = "/blog-admin-basic", method = RequestMethod.POST)
+	public String blogUpdate( BlogVo vo, @AuthUser UserVo authUser,
+			@RequestParam(value = "title", required = false)String title,
+			@RequestParam(value = "logo-file", required = false)MultipartFile  multipartFile ) {
+		
+		System.out.println("file Upload 실행");
+		System.out.println(	multipartFile) ;
+		
+		String log = blogService.fileSetup(multipartFile);
+		System.out.println("log" + log);
+		
+		vo.setTitle(title);
+		vo.setLog(log);
+		vo.setId(authUser.getId());
+		
+		blogService.updateBlogInfo(vo);
+		
+		return "redirect:/" + authUser.getId();
+	}
+	
+	
 	
 	
 	

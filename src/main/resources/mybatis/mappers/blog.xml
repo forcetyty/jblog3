@@ -10,4 +10,17 @@
 ]]>
 </insert>
 
+<!-- Basic에서 타이틀과 로고를 변경하는 기능 -->
+<update id="updateBlogInfo" parameterType="blogvo">
+<![CDATA[
+	update blog set title = #{title }, log = #{log } where id = #{id };
+]]>
+</update>
+
+<select id="selectBlogInfo" parameterType="String" resultType="blogvo">
+<![CDATA[
+	select id, title, log from blog where id = #{id }
+]]>	
+</select>
+
 </mapper>

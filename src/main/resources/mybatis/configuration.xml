@@ -6,7 +6,6 @@
 		<typeAlias type="kr.co.itcen.jblog.vo.UserVo" alias="uservo"/>
 		<typeAlias type="kr.co.itcen.jblog.vo.BlogVo" alias="blogvo"/>
 		<typeAlias type="kr.co.itcen.jblog.vo.CategoryVo" alias="categoryvo"/>
-		<typeAlias type="kr.co.itcen.jblog.vo.PostVo" alias="postvo"/>
 		<typeAlias type="kr.co.itcen.jblog.vo.CommentVo" alias="commentvo"/>
 		<typeAlias type="kr.co.itcen.jblog.vo.PostVo" alias="postvo"/>
     </typeAliases>	

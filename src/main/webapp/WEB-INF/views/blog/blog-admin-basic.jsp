@@ -17,15 +17,15 @@
 			
 				<c:import url="/WEB-INF/views/include/admin-menu-blog.jsp" />
 				
-				<form action="" method="post">
+				<form action="${pageContext.servletContext.contextPath }/blog/blog-admin-basic" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
-			      			<td><input type="text" size="40" name="title"></td>
+			      			<td><input type="text" size="40" name="title" value="${blogDefaultInfo.title }"></td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.servletContext.contextPath }/assets/images/spring-logo.jpg"></td>      			
+			      			<td><img src="${pageContext.servletContext.contextPath }/assets/logImage/${blogDefaultInfo.log }"></td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>

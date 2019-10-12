@@ -6,11 +6,11 @@ public class BlogVo {
 	private String title; // 블로그 제목
 	private String log; // 블로그 사진
 
-	public String getBlog_id() {
+	public String getId() {
 		return id;
 	}
 
-	public void setBlog_id(String blog_id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -28,6 +28,11 @@ public class BlogVo {
 
 	public void setLog(String log) {
 		this.log = log;
+	}
+
+	@Override
+	public String toString() {
+		return "BlogVo [id=" + id + ", title=" + title + ", log=" + log + "]";
 	}
 
 }

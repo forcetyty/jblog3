@@ -13,12 +13,17 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
-	
+
+	<context:annotation-config />
+
 	<!-- Aop 사용 -->
 	<aop:aspectj-autoproxy />
-	
+
 	<!-- Servlet 컨테이너의 디폴트 Servlet 위임 핸들러 -->
 	<mvc:default-servlet-handler />
+
+	<mvc:resources location="file:/Users/Force/eclipse-workspace-bit/jblog-log/" mapping="/assets/logImage/**" />
+
 
 	<!-- validator, conversionService, messageConverter를 자동으로 등록 -->
 	<mvc:annotation-driven>
@@ -41,14 +46,16 @@
 				</property>
 			</bean>
 		</mvc:message-converters>
-		
+
+
 		<!-- Argument Resolvers -->
-	<mvc:argument-resolvers> 
-		<bean class="kr.co.itcen.jblog.security.AuthUserHandlerMethodArgumentResolver" /> 
+		<mvc:argument-resolvers>
+			<bean
+				class="kr.co.itcen.jblog.security.AuthUserHandlerMethodArgumentResolver" />
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
-	
-<!-- Interceptor -->	
+
+	<!-- Interceptor -->
 	<mvc:interceptors>
 
 		<mvc:interceptor>
@@ -63,19 +70,19 @@
 
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
-			<mvc:exclude-mapping path="/user/auth"/>
-			<mvc:exclude-mapping path="/admin"/>
-			<mvc:exclude-mapping path="/user/logout"/>
-			<mvc:exclude-mapping path="/assets/**"/>
+			<mvc:exclude-mapping path="/user/auth" />
+			<mvc:exclude-mapping path="/admin" />
+			<mvc:exclude-mapping path="/user/logout" />
+			<mvc:exclude-mapping path="/assets/**" />
 			<bean class="kr.co.itcen.jblog.security.AuthInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors> 
-	
-	<!--  -->
+	</mvc:interceptors>
+
+	<!-- -->
 	<context:annotation-config />
 	<context:component-scan
 		base-package="kr.co.itcen.jblog.controller, kr.co.itcen.jblog.exception" />
-	
+
 	<!-- View Resolver -->
 	<!-- Url Mapping시에 접두사와 접미사에 자동으로 매핑 -->
 	<bean id="viewResolver"
@@ -96,5 +103,16 @@
 			</list>
 		</property>
 	</bean>
-	
+
+	<!-- 멀티파트 리졸버 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 최대업로드 가능한 바이트크기 -->
+		<property name="maxUploadSize" value="52428800" />
+		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+		<!-- property name="maxInMemorySize" value="52428800" / -->
+		<!-- defaultEncoding -->
+		<property name="defaultEncoding" value="utf-8" />
+	</bean>
+
 </beans>
